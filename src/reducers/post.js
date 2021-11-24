@@ -41,7 +41,7 @@ function postReducer(state = initialState, action) {
     case DELETE_POST:
       return {
         ...state,
-        posts: state.posts.filter((post) => post._id !== payload),
+        posts: state.posts.filter((post) => post.id !== payload),
         loading: false
       };
     case POST_ERROR:
@@ -54,7 +54,7 @@ function postReducer(state = initialState, action) {
       return {
         ...state,
         posts: state.posts.map((post) =>
-          post._id === payload.id ? { ...post, likes: payload.likes } : post
+          post.id === payload.id ? { ...post, likes: payload.likes } : post
         ),
         loading: false
       };
@@ -70,7 +70,7 @@ function postReducer(state = initialState, action) {
         post: {
           ...state.post,
           comments: state.post.comments.filter(
-            (comment) => comment._id !== payload
+            (comment) => comment.id !== payload
           )
         },
         loading: false

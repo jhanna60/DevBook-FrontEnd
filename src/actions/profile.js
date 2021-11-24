@@ -86,7 +86,7 @@ export const createProfile =
   (formData, navigate, edit = false) =>
   async (dispatch) => {
     try {
-      const res = await api.post('/profile', formData);
+      const res = await api.post('/v1/profile', formData);
 
       dispatch({
         type: GET_PROFILE,
@@ -117,7 +117,7 @@ export const createProfile =
 // Add Experience
 export const addExperience = (formData, navigate) => async (dispatch) => {
   try {
-    const res = await api.put('/profile/experience', formData);
+    const res = await api.put('/v1/profile/experience', formData);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -144,7 +144,7 @@ export const addExperience = (formData, navigate) => async (dispatch) => {
 // Add Education
 export const addEducation = (formData, navigate) => async (dispatch) => {
   try {
-    const res = await api.put('/profile/education', formData);
+    const res = await api.put('/v1/profile/education', formData);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -171,7 +171,7 @@ export const addEducation = (formData, navigate) => async (dispatch) => {
 // Delete experience
 export const deleteExperience = (id) => async (dispatch) => {
   try {
-    const res = await api.delete(`/profile/experience/${id}`);
+    const res = await api.delete(`/v1/profile/experience/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -190,7 +190,7 @@ export const deleteExperience = (id) => async (dispatch) => {
 // Delete education
 export const deleteEducation = (id) => async (dispatch) => {
   try {
-    const res = await api.delete(`/profile/education/${id}`);
+    const res = await api.delete(`/v1/profile/education/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -210,7 +210,7 @@ export const deleteEducation = (id) => async (dispatch) => {
 export const deleteAccount = () => async (dispatch) => {
   if (window.confirm('Are you sure? This can NOT be undone!')) {
     try {
-      await api.delete('/profile');
+      await api.delete('/v1/profile');
 
       dispatch({ type: CLEAR_PROFILE });
       dispatch({ type: ACCOUNT_DELETED });

@@ -6,7 +6,7 @@ import formatDate from '../../utils/formatDate';
 
 const Education = ({ education, deleteEducation }) => {
   const educations = education.map((edu) => (
-    <tr key={edu._id}>
+    <tr key={edu.id}>
       <td>{edu.school}</td>
       <td className="hide-sm">{edu.degree}</td>
       <td>
@@ -14,7 +14,7 @@ const Education = ({ education, deleteEducation }) => {
       </td>
       <td>
         <button
-          onClick={() => deleteEducation(edu._id)}
+          onClick={() => deleteEducation(edu.id)}
           className="btn btn-danger"
         >
           Delete

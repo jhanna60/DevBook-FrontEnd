@@ -19,7 +19,7 @@ const Posts = ({ getPosts, post: { posts } }) => {
       <PostForm />
       <div className="posts">
         {posts.map((post) => (
-          <PostItem key={post._id} post={post} />
+          <PostItem key={post.id} post={post} />
         ))}
       </div>
     </section>

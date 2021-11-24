@@ -6,7 +6,7 @@ import formatDate from '../../utils/formatDate';
 
 const Experience = ({ experience, deleteExperience }) => {
   const experiences = experience.map((exp) => (
-    <tr key={exp._id}>
+    <tr key={exp.id}>
       <td>{exp.company}</td>
       <td className="hide-sm">{exp.title}</td>
       <td>
@@ -14,7 +14,7 @@ const Experience = ({ experience, deleteExperience }) => {
       </td>
       <td>
         <button
-          onClick={() => deleteExperience(exp._id)}
+          onClick={() => deleteExperience(exp.id)}
           className="btn btn-danger"
         >
           Delete
