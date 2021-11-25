@@ -13,19 +13,21 @@ Instructions are provided below and if you have any questions please feel free t
 Thankfully some things were salvaged so not all hope is lost, we still have the following:
 
 - React frontend
-- Security implementation classes for our back end
+- Resources Folder of goodies, in there we have:
+  - Security implementation classes for our back end
+  - Raw Entities
+  - List of dependencies needed for POM
 - Detailed explanation of our API contracts
 
-Without further ado lets get started...
+Please use this README carefully it has all the instructions you will need!!
 
 ## Tech Stack & Prerequisites
 
 **Client:** React, Redux, Custom CSS, Axios
 
-**Server:** Spring Boot, Java 11 / 17 (Your choice)
+**Server:** Spring Boot, Java 17
 
-**Prerequisites:** Git, IntelliJ, Java 11/17, Npm 6.14 or greater, you may also need to modify your npm config
-file to get npm working with our proxy - insert instrcutions here-
+**Prerequisites:** Git, IntelliJ, Java 17, Npm 6.14 or greater, Maven configured for proxy, npm config configured for proxy
 
 ## Running the Frontend Locally
 
@@ -53,12 +55,16 @@ Start the server
   npm run start
 ```
 
+
 ## API Documentation
 
-Overall we will need 3 controllers - PostController, ProfileController and User Controller
+Overall we will need 3 controllers - 
+* PostController 
+* ProfileController
+* User Controller
 
-As the front end is already built we will be constrained when it comes to naming conventions for our endpoints so
-to that end I have a list of all the required endpoints and their controller below:
+As the front end is already built we will be constrained when it comes to the naming conventions for our endpoints so
+to that end I have a FULL list of all the required endpoints and their controllers below:
 
 ### User Controller
 
@@ -72,7 +78,7 @@ dealing with based on JWT token alone. This controller has a total of 2 endpoint
   GET /api/v1/users
 ```
 
-This endpoint should return a UserDto, it is a private endpoint so the email will be known.
+This endpoint should return a UserDto, the email will be known once the user is authenticated.
 Email can be found (once auth has been done) using - SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString()
 
 #### Register User
@@ -81,8 +87,9 @@ Email can be found (once auth has been done) using - SecurityContextHolder.getCo
   POST /api/v1/users
 ```
 
-This endpoint is used to register a new user and it is public, it expects a valid UserDto to be
-passed in and in return it will return Status 200 and a Response body with {"token" : "tokenvalue"}
+This endpoint is used to register a new user and it requires no authentication, it expects a valid UserDto to be
+passed in so that it can validate and save it away, we then log in the user and return Status 200 and a Response body with {"token" : "tokenvalue"}
+This JWT token will provide the backbone for the entire front end and allow the logged in user to access protected endpoints.
 
 ### Profile Controller
 
