@@ -278,7 +278,9 @@ to reflect the new comments
 ## Reflection
 
 What did you learn while building this project? 
+
 What challenges did you face and how did you overcome them?
+
 What would you do differently next time if faced with a similar challenge?
 
 ## Authors
