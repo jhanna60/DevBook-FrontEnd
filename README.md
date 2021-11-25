@@ -58,6 +58,12 @@ Start the server
 
 ## API Documentation
 
+### Prioritisation & Planning
+
+If we are to split the requirements up using the [MoSCoW](https://en.wikipedia.org/wiki/MoSCoW_method) principle, we can break it down as follows:
+
+![Logo](MoSCoW.png)
+
 Overall we will need 3 controllers - 
 * PostController 
 * ProfileController
