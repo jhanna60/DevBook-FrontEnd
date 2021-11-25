@@ -14,8 +14,8 @@ Thankfully some things were salvaged so not all hope is lost, we still have the 
 
 - React frontend
 - Resources Folder of goodies, in there we have:
-  - Security implementation classes for our back end
-  - Raw Entities
+  - Security implementation classes for our back end (Simply add these into a Security package in your project)
+  - Raw Entities to get you started
   - List of dependencies needed for POM
 - Detailed explanation of our API contracts
 
@@ -59,6 +59,10 @@ Start the server
 ## API Documentation
 
 ### Prioritisation & Planning
+
+`Failing to prepare is preparing to fail` as Benjamin Franklin once said
+
+Pay attention to the tasks at hand and get yourselves organised into groups and devise a plan to tackle this
 
 If we are to split the overall requirements up using the [MoSCoW](https://en.wikipedia.org/wiki/MoSCoW_method) principle, we can break it down as follows:
 
