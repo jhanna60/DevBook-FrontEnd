@@ -134,6 +134,52 @@ This end point takes in a partial ProfileDto and will return a complete ProfileD
 Please note this endpoint has a few 'Gotchas' for example check how the 'Skills' are sent and think about how you map them to the Entities
 in the DB. Also keep in mind that the front end will expect these back in the same way that it sends them!
 
+#### Delete MyProfile (Private)
+
+```http
+  DELETE /api/v1/profile
+```
+
+This endpoint will be responsible for deleting a User, their profile and Posts.
+Although it is in the profile controller we do expect this endpoint to fully delete a User, Profile and Posts associated with this user.
+The endpoint expects no input and doesnt need to return anything except a 200-Status-OK once deleted.
+
+#### Add Experience (Private)
+
+```http
+  PUT /api/v1/profile/experience
+```
+
+This endpoint will accept a ExperienceDto as part of the Request body and it should update the profile of the logged in user
+and finally it should return the full ProfileDto once it has finished
+
+#### Delete Experience (Private)
+
+```http
+  DELETE /api/v1/profile/experience/{experienceId}
+```
+
+This endpoint will accept a param being passed in 'experienceId' it should then go and remove the Experience object from the
+profile of the logged in user and finally return the full ProfileDto when its finished
+
+#### Add Education (Private)
+
+```http
+  PUT /api/v1/profile/education
+```
+
+This endpoint will accept a EducationDto as part of the Request body and it should update the profile of the logged in user
+and finally it should return the full ProfileDto once it has finished
+
+#### Delete Education (Private)
+
+```http
+  DELETE /api/v1/profile/experience/{educationId}
+```
+
+This endpoint will accept a param being passed in 'educationId' it should then go and remove the Education object from the
+profile of the logged in user and finally return the full ProfileDto when its finished
+
 ## Authors
 
 - [@jhanna60](https://github.com/jhanna60)
