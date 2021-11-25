@@ -92,6 +92,48 @@ On top of this it will provide some more functionality in the form of adding and
 and Experience objects from a Profile. Please note User and Profile are not the same thing. A User can exist BEFORE
 they have a profile.
 
+#### Get AllProfiles (Public)
+
+```http
+  GET /api/v1/profile
+```
+
+This endpoint should return all profiles as a List of ProfileDto
+It requires no authentication and no input params/request body, just a simple get request to return all profiles in the DB
+
+#### Get ProfileById (Public)
+
+```http
+  GET /api/v1/profile/user/{userId}
+```
+
+This endpoint is similar to the one above but instead of returning a list of ProfileDtos it will return just one Profile Dto
+This profile will be the one that has the embedded user Id that was passed through.
+It will accept a path variable of Long for user Id and pass back a ProfileDto
+
+#### Get MyProfile (Private)
+
+```http
+  GET /api/v1/profile/me
+```
+
+This endpoint will return a ProfileDto and it will derive this based on the logged in user, similar to the GetUser endpoint
+we need to use - SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() to get the users email.
+This end point takes in no params or request body object and it returns a ProfileDto.
+
+#### Create Or Update Profile (Private)
+
+```http
+  POST /api/v1/profile
+```
+
+This endpoint will receive a partial ProfileDto object and then we are expected to see if a profile already exists for the logged
+in user. If a profile already exists then please update it with the new changes, if it doesnt exist then you will need to build the full
+Profile and add in the fields passed from the caller then save the profile.
+This end point takes in a partial ProfileDto and will return a complete ProfileDto (Updated or created)
+Please note this endpoint has a few 'Gotchas' for example check how the 'Skills' are sent and think about how you map them to the Entities
+in the DB. Also keep in mind that the front end will expect these back in the same way that it sends them!
+
 ## Authors
 
 - [@jhanna60](https://github.com/jhanna60)
