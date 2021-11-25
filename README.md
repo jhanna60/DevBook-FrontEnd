@@ -64,9 +64,9 @@ to that end I have a list of all the required endpoints and their controller bel
 
 This controller will be responsible for registering new users onto the system and it will also
 provide a UserDto when its called with a security token allowing the caller to work out what user it is
-dealing with based on JWT token alone. It provides 2 endpoints in total:
+dealing with based on JWT token alone. This controller has a total of 2 endpoints.
 
-#### Get User (Private)
+#### Get User (Authenticated)
 
 ```http
   GET /api/v1/users
@@ -75,7 +75,7 @@ dealing with based on JWT token alone. It provides 2 endpoints in total:
 This endpoint should return a UserDto, it is a private endpoint so the email will be known.
 Email can be found (once auth has been done) using - SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString()
 
-#### Register User (Public)
+#### Register User
 
 ```http
   POST /api/v1/users
@@ -90,9 +90,9 @@ This controller will be responsible for everything profile related, it will allo
 and allow the front end to return a profile for the logged in User.
 On top of this it will provide some more functionality in the form of adding and removing both Education
 and Experience objects from a Profile. Please note User and Profile are not the same thing. A User can exist BEFORE
-they have a profile.
+they have a profile. This controller has a total of 9 endpoints.
 
-#### Get AllProfiles (Public)
+#### Get AllProfiles
 
 ```http
   GET /api/v1/profile
@@ -101,7 +101,7 @@ they have a profile.
 This endpoint should return all profiles as a List of ProfileDto
 It requires no authentication and no input params/request body, just a simple get request to return all profiles in the DB
 
-#### Get ProfileById (Public)
+#### Get ProfileById
 
 ```http
   GET /api/v1/profile/user/{userId}
@@ -111,7 +111,7 @@ This endpoint is similar to the one above but instead of returning a list of Pro
 This profile will be the one that has the embedded user Id that was passed through.
 It will accept a path variable of Long for user Id and pass back a ProfileDto
 
-#### Get MyProfile (Private)
+#### Get MyProfile (Authenticated)
 
 ```http
   GET /api/v1/profile/me
@@ -121,7 +121,7 @@ This endpoint will return a ProfileDto and it will derive this based on the logg
 we need to use - SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString() to get the users email.
 This end point takes in no params or request body object and it returns a ProfileDto.
 
-#### Create Or Update Profile (Private)
+#### Create Or Update Profile (Authenticated)
 
 ```http
   POST /api/v1/profile
@@ -134,7 +134,7 @@ This end point takes in a partial ProfileDto and will return a complete ProfileD
 Please note this endpoint has a few 'Gotchas' for example check how the 'Skills' are sent and think about how you map them to the Entities
 in the DB. Also keep in mind that the front end will expect these back in the same way that it sends them!
 
-#### Delete MyProfile (Private)
+#### Delete MyProfile (Authenticated)
 
 ```http
   DELETE /api/v1/profile
@@ -144,7 +144,7 @@ This endpoint will be responsible for deleting a User, their profile and Posts.
 Although it is in the profile controller we do expect this endpoint to fully delete a User, Profile and Posts associated with this user.
 The endpoint expects no input and doesnt need to return anything except a 200-Status-OK once deleted.
 
-#### Add Experience (Private)
+#### Add Experience (Authenticated)
 
 ```http
   PUT /api/v1/profile/experience
@@ -153,7 +153,7 @@ The endpoint expects no input and doesnt need to return anything except a 200-St
 This endpoint will accept a ExperienceDto as part of the Request body and it should update the profile of the logged in user
 and finally it should return the full ProfileDto once it has finished
 
-#### Delete Experience (Private)
+#### Delete Experience (Authenticated)
 
 ```http
   DELETE /api/v1/profile/experience/{experienceId}
@@ -162,7 +162,7 @@ and finally it should return the full ProfileDto once it has finished
 This endpoint will accept a param being passed in 'experienceId' it should then go and remove the Experience object from the
 profile of the logged in user and finally return the full ProfileDto when its finished
 
-#### Add Education (Private)
+#### Add Education (Authenticated)
 
 ```http
   PUT /api/v1/profile/education
@@ -171,7 +171,7 @@ profile of the logged in user and finally return the full ProfileDto when its fi
 This endpoint will accept a EducationDto as part of the Request body and it should update the profile of the logged in user
 and finally it should return the full ProfileDto once it has finished
 
-#### Delete Education (Private)
+#### Delete Education (Authenticated)
 
 ```http
   DELETE /api/v1/profile/experience/{educationId}
@@ -179,6 +179,85 @@ and finally it should return the full ProfileDto once it has finished
 
 This endpoint will accept a param being passed in 'educationId' it should then go and remove the Education object from the
 profile of the logged in user and finally return the full ProfileDto when its finished
+
+### Post Controller
+
+This controller is responsible for everything Post related and forms the main functionality of the Social Network
+application, it allows people to make posts and delete them, also it allows for people 'Liking' and 'Commenting'
+on the posts as well. This controller has a total of 8 endpoints
+
+#### Get Posts (Authenticated)
+
+```http
+  GET /api/v1/posts
+```
+
+This endpoint will get all posts and return a List of PostDtos, it requires no input.
+
+#### Get Post (Authenticated)
+
+```http
+  GET /api/v1/posts/{postId}
+```
+
+This endpoint will get one post and return a PostDtos, It has an input of postId which is used to locate the post it
+needs to return
+
+#### Create Post (Authenticated)
+
+```http
+  POST /api/v1/posts
+```
+
+This endpoint will create a new post, it will accept an incoming string for the post like {"text":"some text here"}
+The endpoint should then build up a new Post object populating everything that is needed and then finally return the
+PostDto object once it has been saved
+
+#### Delete Post (Authenticated)
+
+```http
+  DELETE /api/v1/posts/{postId}
+```
+
+This endpoint will delete a post, it accepts a variable postId which will be the Id of the post we should delete, we
+should then delete the post and return {"msg":"Post Removed"} alongside status 200-OK
+
+#### Like Post (Authenticated)
+
+```http
+  PUT /api/v1/posts/like/{postId}
+```
+
+This endpoint will register a 'Like' under a post it should check if the user has already liked this post, if they
+havent already then it should register a Like object for the user and then return a List of LikeDtos from the Post
+
+#### UnLike Post (Authenticated)
+
+```http
+  PUT /api/v1/posts/unlike/{postId}
+```
+
+This endpoint is similar to above except it will 'unlike' a Post, of course the user has to have a like in there already
+in order to remove it, once we remove the Like we should return a List of LikeDtos to reflect the new Likes.
+
+#### Add comment to post (Authenticated)
+
+```http
+  POST /api/v1/posts/comment/{postId}
+```
+
+This endpoint will allow us to add a comment to a Post, it accepts a postId param and in RequestBody it will send {"text": "some comment"}
+We should then find the relevant Post and add our comment to it finally we should return a List of CommentDto
+
+#### Delete comment from post (Authenticated)
+
+```http
+  DELETE /api/v1/posts/comment/{postId}/{commentId}
+```
+
+This endpoint will allow us to delete a comment from a Post, it will send TWO params postId and commentId, this will
+allow us to locate the Post and finally delete the comment matching commentId. We should return a List of CommentDtos
+to reflect the new comments
 
 ## Authors
 
