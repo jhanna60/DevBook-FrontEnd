@@ -60,9 +60,12 @@ Start the server
 
 ### Prioritisation & Planning
 
-If we are to split the requirements up using the [MoSCoW](https://en.wikipedia.org/wiki/MoSCoW_method) principle, we can break it down as follows:
+If we are to split the overall requirements up using the [MoSCoW](https://en.wikipedia.org/wiki/MoSCoW_method) principle, we can break it down as follows:
 
 ![Logo](MoSCoW.png)
+
+Please plan your workloads accordingly and aim to get the MVP out the door, continually assess progress and look to where your time is best spent, sometimes
+it's better to cut your losses and move on in the grand scheme of things.
 
 Overall we will need 3 controllers - 
 * PostController 
@@ -271,6 +274,12 @@ We should then find the relevant Post and add our comment to it finally we shoul
 This endpoint will allow us to delete a comment from a Post, it will send TWO params postId and commentId, this will
 allow us to locate the Post and finally delete the comment matching commentId. We should return a List of CommentDtos
 to reflect the new comments
+
+## Reflection
+
+What did you learn while building this project? 
+What challenges did you face and how did you overcome them?
+What would you do differently next time if faced with a similar challenge?
 
 ## Authors
 
